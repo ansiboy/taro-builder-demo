@@ -1,0 +1,32 @@
+@import "../../../node_modules/taro-ui/dist/style/variables/default.scss";
+
+.loading {
+    text-align : center;
+    width      : 100%;
+    padding-top: 100px;
+    border     : none;
+}
+
+.fail {
+    text-align : center;
+    width      : 100%;
+    padding-top: 100px;
+    border     : none;
+
+    $padding: 0 20px;
+
+    .title {
+        margin-top : 80px;
+        font-size  : $font-size-lg;
+        text-align : left;
+        font-weight: bold;
+        padding    : $padding;
+    }
+
+    .detail {
+        margin-top: 15px;
+        text-align: left;
+        padding   : $padding;
+        font-size : $font-size-lg;
+    }
+}

@@ -2,7 +2,13 @@
     "compilerOptions": {
         "target": "ES6",
         "module": "CommonJS",
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "./",
+        "paths": {
+            "taro-builder/static": [
+                "./node_modules/taro-builder/out/static/index.d.ts"
+            ]
+        }
     },
     "exclude": [
         "app"
