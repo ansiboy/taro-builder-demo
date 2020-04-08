@@ -3,6 +3,7 @@ import Index from './modules/index'
 
 import './app.less'
 import "../node_modules/taro-ui/dist/style/index.scss";
+import React from 'react';
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：

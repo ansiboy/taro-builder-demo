@@ -1,0 +1,44 @@
+@import "../../node_modules/taro-ui/dist/style/variables/default.scss";
+
+.single-colunm-products {
+    $categories-width: 200px;
+
+    .categories {
+        width : $categories-width;
+        float : left;
+        border: 1px solid #cccccc;
+
+        .item {
+            font-weight: bold;
+            padding    : 5px 5px 5px 5px;
+            font-size  : $font-size-base;
+        }
+
+        position:fixed;
+        left    : 0;
+        top     : 0;
+    }
+
+    .product-list {
+        width        : calc(100% - #{$categories-width + 30px});
+        padding-left : $categories-width + 15px;
+        padding-right: 15px;
+
+        .item {
+            padding-top   : 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    .at-list {
+        &__item-content {
+            margin-right: 0px;
+        }
+
+        &__item::after {
+            left: 0;
+        }
+    }
+
+
+}

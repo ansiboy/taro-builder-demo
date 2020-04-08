@@ -12,7 +12,7 @@ const loading_1 = require("../controls/loading");
 const index_1 = require("../services/index");
 let SingleColumnProducts = class SingleColumnProducts extends Taro.Component {
     async loadData(props) {
-        props = props || this.props;
+        props = props || this.props;debugger;
         let { categoryId, productsCount, productIds } = props;
         let sourceType = props.productSourceType;
         let productPromise;

@@ -28,7 +28,6 @@ export class DataForm<T> extends React.Component<DataFormProps<T>> {
 
     async validate(): Promise<boolean> {
         let isValid: boolean = true;
-        console.log(this.inputs);
         for (let key in this.inputs) {
             let r = await this.inputs[key].validate();
             if (r == false)
@@ -38,7 +37,6 @@ export class DataForm<T> extends React.Component<DataFormProps<T>> {
         return isValid;
     }
     async submit() {
-        console.log("submit")
         let isValid = await this.validate();
         if (isValid != true)
             return;

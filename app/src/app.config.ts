@@ -1,6 +1,8 @@
 export default {
   pages: [
 
+    "modules/index",
+    "modules/temp",
     "modules/user/receipt-list",
     "modules/user/index",
     "modules/user/favor",
@@ -12,7 +14,6 @@ export default {
     "modules/account-security/mobile-binding",
 
     "modules/shopping/order-list",
-    'modules/index',
   ],
   window: {
     backgroundTextStyle: 'light',

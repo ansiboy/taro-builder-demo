@@ -14,5 +14,11 @@ export let dataSources = {
         async update(item) {
             return services.shopping.saveReceiptInfo(item);
         }
+    }),
+    product: new DataSource<Product>({
+        select: async (args) => {
+            let r = await services.shopping.products();
+            return { totalRowCount: r.length, dataItems: r };
+        }
     })
 }

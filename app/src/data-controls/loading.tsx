@@ -1,5 +1,6 @@
 import React from "react";
 import { Empty } from "./empty";
+import { View } from "@tarojs/components";
 
 interface LoadingProps<T> {
     loadData: () => Promise<T>
@@ -7,10 +8,11 @@ interface LoadingProps<T> {
 
 interface LoadingState<T> {
     data?: T
-    status: "loading" | "success" | "fail"
+    status: "loading" | "success" | "fail" | "empty"
+    error?: Error
 }
 
-export let LoadingContext = React.createContext<{ data: any }>({ data: null });
+export let LoadingData = React.createContext<{ data: any }>({ data: null });
 
 export class Loading<T> extends React.Component<LoadingProps<T>, LoadingState<T>> {
     constructor(props) {
@@ -20,26 +22,40 @@ export class Loading<T> extends React.Component<LoadingProps<T>, LoadingState<T>
     loadData() {
         this.setState({ status: "loading" })
         this.props.loadData().then(r => {
-            this.setState({ data: r, status: "success" })
+            if (r == null || (Array.isArray(r) && r.length == 0)) {
+                this.setState({ status: "empty" });
+                return;
+            }
+
+            this.setState({ data: r, status: "success" });
         }).catch(err => {
-            this.setState({ status: "fail" });
+            this.setState({ status: "fail", error: err });
         })
     }
     componentDidMount() {
         this.loadData();
     }
     render() {
-        let { status, data } = this.state;
-        if (status == "fail") {
-            return <Empty icon="close" text="数据加载失败, 点击重新加载"
-                onClick={() => this.loadData()} />
-        }
+        let { status, data, error } = this.state;
         if (status == "loading") {
-            return <Empty icon="loading" text="数据正在加载中..." />
+            return <View className="loading">数据正在加载中...</View>
         }
-        console.log(data);
-        return <LoadingContext.Provider value={{ data }}>
+        if (status == "fail") {
+            return <View className="fail" onClick={() => this.loadData()}>
+                数据加载失败，点击重新加载
+                <View className="title">错误信息</View>
+                <View className="detail">
+                    {error?.message}
+                </View>
+            </View>
+        }
+        if (status == "empty") {
+            return <Empty icon="file-generic" text="暂无数据" />
+        }
+
+        return <LoadingData.Provider value={{ data }}>
             {this.props.children}
-        </LoadingContext.Provider>
+        </LoadingData.Provider>
+
     }
 }

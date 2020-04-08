@@ -1,7 +1,11 @@
-import Taro from "@tarojs/taro";
 import { component } from "maishu-jueying-core";
-import { Loading } from "../controls/loading";
-import { services } from "../services/index";
+import { Loading, LoadingData, Repeater, RepeaterItem } from "../data-controls/index";
+import { services, ShoppingService } from "../services/index";
+import React from "react";
+import { View, ScrollView, Text } from "@tarojs/components";
+import { AtList, AtListItem, AtIcon, AtInputNumber } from "taro-ui";
+import "./single-column-products.scss";
+import { DataSource, DataSourceSelectResult } from "maishu-toolkit";
 
 export interface Props {
     /** 商品来源 */
@@ -21,22 +25,35 @@ export interface Props {
 }
 
 export interface State {
-    products: Product[],
     categories: Category[],
     shoppingCartItems: ShoppingCartItem[],
+    productCounts: { [key: string]: number },
 }
 
 
-
 @component({ displayName: "单列商品", icon: "icon-list", introduce: "单列展示商品" })
-export class SingleColumnProducts extends Taro.Component<Props, State> {
+export class SingleColumnProducts extends React.Component<Props, State> {
 
     static defaultProps: Props = {
         imageSize: "small", productNameLines: "singleLine", productSourceType: "all",
-        productsCount: 1, showCategories: true, productIds: undefined,
+        productsCount: 1000, showCategories: true, productIds: undefined,
     }
 
-    async loadData(props?: Props) {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            categories: ShoppingService.cacheCategories || [], shoppingCartItems: [],
+            productCounts: {}
+        };
+    }
+
+    componentDidMount() {
+        services.shopping.categories().then(r => {
+            this.setState({ categories: r });
+        })
+    }
+
+    async loadData(props: Props): Promise<DataSourceSelectResult<Product>> {
         props = props || this.props
         let { categoryId, productsCount, productIds } = props;
         let sourceType = props.productSourceType;
@@ -51,16 +68,46 @@ export class SingleColumnProducts extends Taro.Component<Props, State> {
             productPromise = services.shopping.products(productsCount);
         }
 
-        let [categories, products] = await Promise.all([services.shopping.categories(), productPromise]);
-
-        if (products == null || products.length == 0)
-            return "暂无所要显示的商品";
-
-        return { products, categories }
+        let products = await productPromise;
+        return { dataItems: products, totalRowCount: products.length };
     }
     render() {
-        return <Loading loadData={() => this.loadData()}>
-
-        </Loading>
+        let { categories, productCounts } = this.state;
+        return <View className="single-colunm-products">
+            <AtList className="categories" hasBorder={false}>
+                {categories.map(c =>
+                    <AtListItem key={c.Id} title={c.Name}>
+                        {c.Name}
+                    </AtListItem>
+                )}
+            </AtList>
+            <ScrollView className="product-list">
+                <Repeater dataSource={new DataSource({ primaryKeys: ["Id"], select: () => this.loadData(this.props) })}>
+                    <RepeaterItem.Consumer>
+                        {args => {
+                            let p: Product = args.dataItem;
+                            return <View>
+                                <View className="item at-row">
+                                    {p.Name}
+                                </View>
+                                <View className="item at-row">
+                                    <View className="at-col at-col-6">
+                                        <Text>价格</Text>{p.Price.toFixed(2)}
+                                    </View>
+                                    <View className="at-col at-col-6" style={{ textAlign: "right" }}>
+                                        <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
+                                            onChange={(value) => {
+                                                productCounts[p.Id] = value;
+                                                this.setState({ productCounts });
+                                            }} />
+                                    </View>
+                                </View>
+                                {args.index < args.count - 1 ? <View style={{ backgroundColor: "#eeeeee", width: "100%", height: "2px" }} ></View> : null}
+                            </View>
+                        }}
+                    </RepeaterItem.Consumer>
+                </Repeater>
+            </ScrollView>
+        </View >
     }
 }

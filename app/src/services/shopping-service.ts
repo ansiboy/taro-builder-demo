@@ -120,9 +120,16 @@ export class ShoppingService extends MyService {
         let url = this.url('Product/GetCategory');
         return this.getByJson<ProductCategory>(url, { categoryId });
     }
-    categories() {
-        let url = this.url('Product/GetCategories');
-        return this.getByJson<ProductCategory[]>(url);
+
+    static cacheCategories: ProductCategory[] | null = null;
+    async categories() {
+        if (!ShoppingService.cacheCategories) {
+            let url = this.url('Product/GetCategories');
+            let r = await this.getByJson<ProductCategory[]>(url);
+            ShoppingService.cacheCategories = r;
+        }
+        
+        return ShoppingService.cacheCategories;
     }
     toCommentProducts() {
         var result = this.getByJson<ProductComent[]>(this.url('Product/GetToCommentProducts'))

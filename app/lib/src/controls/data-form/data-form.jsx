@@ -13,7 +13,6 @@ class DataForm extends taro_1.Component {
     }
     async validate() {
         let isValid = true;
-        console.log(this.inputs);
         for (let key in this.inputs) {
             let r = await this.inputs[key].validate();
             if (r == false)

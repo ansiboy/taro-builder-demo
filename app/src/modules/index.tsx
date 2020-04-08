@@ -1,26 +1,24 @@
-import { View, Text } from '@tarojs/components'
 import './index.less'
 import React from 'react'
+import { SingleColumnProducts } from '../components'
 
 export default class Index extends React.Component {
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
 
 
-  render () {
+  render() {
     return (
-      <View className='index'>
-        <Text>Hello world!!!!</Text>
-      </View>
+      <SingleColumnProducts />
     )
   }
 }

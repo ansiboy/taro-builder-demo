@@ -1,9 +1,9 @@
-import Taro from "@tarojs/taro";
 import { View, Swiper, SwiperItem } from "@tarojs/components";
 import { component } from "maishu-jueying-core";
+import React from "react";
 
 @component({ displayName: "轮播", icon: "icon-list-alt", introduce: "多张图片轮流播放" })
-export class Carousel extends Taro.Component {
+export class Carousel extends React.Component {
     render() {
         return <Swiper
             className='test-h'
