@@ -53,9 +53,16 @@ export class Loading<T> extends React.Component<LoadingProps<T>, LoadingState<T>
             return <Empty icon="file-generic" text="暂无数据" />
         }
 
-        return <LoadingData.Provider value={{ data }}>
-            {this.props.children}
-        </LoadingData.Provider>
+        if (status == "success") {
+            return <View style={{ paddingTop: 0 }}>
+                <LoadingData.Provider value={{ data }}>
+                    {this.props.children}
+                </LoadingData.Provider>
+            </View>
+        }
 
+        return <View>
+            Unkonown status {status}.
+        </View>
     }
 }

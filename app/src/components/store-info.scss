@@ -1,0 +1,46 @@
+@import "../variables.scss";
+
+.store-info {
+
+    $image-width : 80px * $hd;
+    $image-height: 80px * $hd;
+    $v-padding   : 10px * $hd;
+    $h-padding   : 10px * $hd;
+    $bg-color    : $bg-color;
+    padding      : $v-padding $h-padding;
+    background   : $bg-color;
+
+    .logo {
+        float: left;
+
+        .image {
+            width : $image-width;
+            height: $image-width;
+        }
+    }
+
+    .main {
+        margin-left: $image-width + 15px * $hd;
+        text-align : left;
+        color      : white;
+
+        .mobile-page & {
+            margin-top: -4px;
+        }
+
+        .name {
+            font-size: 18px * $hd;
+        }
+
+        .info {
+            padding-top: 8px * $hd;
+
+            .item {
+                width     : 33.3%;
+                float     : left;
+                font-size : 16px * $hd;
+                text-align: center;
+            }
+        }
+    }
+}

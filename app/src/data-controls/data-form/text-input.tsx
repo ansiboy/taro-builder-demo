@@ -1,14 +1,11 @@
-// import Taro from "@tarojs/taro";
 import { AtInput } from "taro-ui";
 import { DataFormContext, DataFormContextValue } from "./data-form";
-// import { Rule, rules } from "./rules";
 import { View } from "@tarojs/components";
 import { Rule } from "./rules";
 import { guid } from "maishu-toolkit";
 import { InputControl } from "./input-control";
 import { defaultErrors } from "./default-errors";
 import React from "react";
-// import { errors } from "maishu-chitu-service/out/errors";
 
 interface TextInputProps<T> {
     dataField: keyof T,
@@ -93,8 +90,9 @@ export class TextInput<T> extends React.Component<TextInputProps<T>, TextInputSt
                 return Number.parseFloat(text);
             case "date":
                 return new Date(text);
+            default:
+                throw new Error(`Unknown data type ${dataType}.`);
         }
-        throw new Error(`Unknown data type ${dataType}.`);
     }
 
     componentDidMount() {

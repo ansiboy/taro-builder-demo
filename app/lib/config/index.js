@@ -1,38 +1,21 @@
 const config = {
     projectName: 'app2',
-    date: '2020-3-26',
+    date: '2020-3-29',
     designWidth: 750,
     deviceRatio: {
-        '640': 2.34 / 2,
-        '750': 1,
-        '828': 1.81 / 2
+        640: 2.34 / 2,
+        750: 1,
+        828: 1.81 / 2
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    babel: {
-        sourceMap: true,
-        presets: [
-            ['env', {
-                    modules: false
-                }]
-        ],
-        plugins: [
-            'transform-decorators-legacy',
-            'transform-class-properties',
-            'transform-object-rest-spread',
-            [
-                "transform-runtime",
-                {
-                    "helpers": false,
-                    "polyfill": false,
-                    "regenerator": true,
-                    "moduleName": "babel-runtime"
-                }
-            ]
-        ]
-    },
     plugins: [],
     defineConstants: {},
+    copy: {
+        patterns: [],
+        options: {}
+    },
+    framework: 'react',
     mini: {
         postcss: {
             pxtransform: {
@@ -42,7 +25,7 @@ const config = {
             url: {
                 enable: true,
                 config: {
-                    limit: 10240 // 设定转换尺寸上限
+                    limit: 1024 // 设定转换尺寸上限
                 }
             },
             cssModules: {
@@ -60,13 +43,7 @@ const config = {
         postcss: {
             autoprefixer: {
                 enable: true,
-                config: {
-                    browsers: [
-                        'last 3 versions',
-                        'Android >= 4.1',
-                        'ios >= 8'
-                    ]
-                }
+                config: {}
             },
             cssModules: {
                 enable: false,
@@ -79,6 +56,8 @@ const config = {
     }
 };
 module.exports = function (merge) {
+    const path = require("path");
+    config.outputRoot = path.join("dist", process.env.TARO_ENV);
     if (process.env.NODE_ENV === 'development') {
         return merge({}, config, require('./dev'));
     }

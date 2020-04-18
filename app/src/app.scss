@@ -1,3 +1,5 @@
+@import "taro-ui/dist/style/index.scss";
+
 .container {
     padding: 0 15px 0 15px;
 }
@@ -16,7 +18,7 @@
 @font-face {
     font-family: 'FontAwesome';
     /* 自行安装第三方字体图标库 */
-    src           : url('https://cdn.bootcss.com/font-awesome/3.2.1/font/fontawesome-webfont.woff?v=3.2.1') format('woff');
+    src: url('https://cdn.bootcss.com/font-awesome/3.2.1/font/fontawesome-webfont.woff?v=3.2.1') format('woff');
 
     font-weight: normal;
     font-style : normal;

@@ -15,6 +15,12 @@ exports.dataSources = {
         async update(item) {
             return index_1.services.shopping.saveReceiptInfo(item);
         }
+    }),
+    product: new maishu_toolkit_1.DataSource({
+        select: async (args) => {
+            let r = await index_1.services.shopping.products();
+            return { totalRowCount: r.length, dataItems: r };
+        }
     })
 };
 //# sourceMappingURL=data-sources.js.map

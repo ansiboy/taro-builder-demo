@@ -1,13 +1,13 @@
 import * as taroBuilder from "taro-builder";
 import path = require("path");
 import fs = require("fs");
-import websiteConfig from "./website-config";
 
-let componentsPhysicalPath = path.join(__dirname, "../app/.temp");
+let componentsPhysicalPath = path.join(__dirname, "../app/src");
 let settings: taroBuilder.Settings = {
     port: 5251,
     rootPhysicalPath: path.join(__dirname),
     appSourcePhysicalPath: componentsPhysicalPath,
+    editorsPath: "component-editors/index",
     db: {
         host: "127.0.0.1",
         database: "taro-builder",
@@ -15,11 +15,9 @@ let settings: taroBuilder.Settings = {
         password: "111111",
         port: 3306
     },
-    websiteConfig
 }
 
 if (fs.existsSync("config.js")) {
     Object.assign(settings, require("./config.js").default);
 }
-debugger
 taroBuilder.start(settings)

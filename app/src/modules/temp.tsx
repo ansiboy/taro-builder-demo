@@ -1,6 +1,7 @@
 import { View, ScrollView } from "@tarojs/components";
 import { Carousel, SingleColumnProducts } from "../components/index";
 import React from "react";
+import { StoreInfo } from "../components/store-info";
 
 export default class PageView extends React.Component {
     constructor(props) {
@@ -36,21 +37,22 @@ export default class PageView extends React.Component {
             color: '#333'
         }
         return (
-            <ScrollView
-                className='scrollview'
-                scrollY
-                scrollWithAnimation
-                scrollTop={scrollTop}
-                style={scrollStyle}
-                lowerThreshold={Threshold}
-                upperThreshold={Threshold}
-                onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
-                onScroll={this.onScroll}
-            >
-                <View style={vStyleA}>A</View>
-                <View style={vStyleB}>B</View>
-                <View style={vStyleC}>C</View>
-            </ScrollView>
+            // <ScrollView
+            //     className='scrollview'
+            //     scrollY
+            //     scrollWithAnimation
+            //     scrollTop={scrollTop}
+            //     style={scrollStyle}
+            //     lowerThreshold={Threshold}
+            //     upperThreshold={Threshold}
+            //     onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
+            //     onScroll={this.onScroll}
+            // >
+            //     <View style={vStyleA}>A</View>
+            //     <View style={vStyleB}>B</View>
+            //     <View style={vStyleC}>C</View>
+            // </ScrollView>
+            <StoreInfo />
         )
     }
 }

@@ -1,8 +1,7 @@
 export default {
   pages: [
-
-    "modules/index",
     "modules/temp",
+    "modules/index",
     "modules/user/receipt-list",
     "modules/user/index",
     "modules/user/favor",
@@ -17,8 +16,8 @@ export default {
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
+    navigationBarBackgroundColor: '#bf0705',
     navigationBarTitleText: '',
-    navigationBarTextStyle: 'black'
+    navigationBarTextStyle: "white"
   }
 }

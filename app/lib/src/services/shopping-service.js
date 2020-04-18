@@ -122,9 +122,13 @@ class ShoppingService extends service_2.MyService {
         let url = this.url('Product/GetCategory');
         return this.getByJson(url, { categoryId });
     }
-    categories() {
-        let url = this.url('Product/GetCategories');
-        return this.getByJson(url);
+    async categories() {
+        if (!ShoppingService.cacheCategories) {
+            let url = this.url('Product/GetCategories');
+            let r = await this.getByJson(url);
+            ShoppingService.cacheCategories = r;
+        }
+        return ShoppingService.cacheCategories;
     }
     toCommentProducts() {
         var result = this.getByJson(this.url('Product/GetToCommentProducts'))
@@ -356,4 +360,5 @@ class ShoppingService extends service_2.MyService {
     }
 }
 exports.ShoppingService = ShoppingService;
+ShoppingService.cacheCategories = null;
 //# sourceMappingURL=shopping-service.js.map

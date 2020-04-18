@@ -1,9 +1,9 @@
 import { component } from "maishu-jueying-core";
-import { Loading, LoadingData, Repeater, RepeaterItem } from "../data-controls/index";
+import { Repeater, RepeaterItem } from "../data-controls/index";
 import { services, ShoppingService } from "../services/index";
 import React from "react";
-import { View, ScrollView, Text } from "@tarojs/components";
-import { AtList, AtListItem, AtIcon, AtInputNumber } from "taro-ui";
+import { View, Text } from "@tarojs/components";
+import { AtList, AtListItem } from "taro-ui";
 import "./single-column-products.scss";
 import { DataSource, DataSourceSelectResult } from "maishu-toolkit";
 
@@ -72,7 +72,7 @@ export class SingleColumnProducts extends React.Component<Props, State> {
         return { dataItems: products, totalRowCount: products.length };
     }
     render() {
-        let { categories, productCounts } = this.state;
+        let { categories } = this.state;
         return <View className="single-colunm-products">
             <AtList className="categories" hasBorder={false}>
                 {categories.map(c =>
@@ -81,7 +81,7 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                     </AtListItem>
                 )}
             </AtList>
-            <ScrollView className="product-list">
+            <View className="product-list">
                 <Repeater dataSource={new DataSource({ primaryKeys: ["Id"], select: () => this.loadData(this.props) })}>
                     <RepeaterItem.Consumer>
                         {args => {
@@ -95,11 +95,11 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                                         <Text>价格</Text>{p.Price.toFixed(2)}
                                     </View>
                                     <View className="at-col at-col-6" style={{ textAlign: "right" }}>
-                                        <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
+                                        {/* <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
                                             onChange={(value) => {
                                                 productCounts[p.Id] = value;
                                                 this.setState({ productCounts });
-                                            }} />
+                                            }} /> */}
                                     </View>
                                 </View>
                                 {args.index < args.count - 1 ? <View style={{ backgroundColor: "#eeeeee", width: "100%", height: "2px" }} ></View> : null}
@@ -107,7 +107,7 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                         }}
                     </RepeaterItem.Consumer>
                 </Repeater>
-            </ScrollView>
+            </View>
         </View >
     }
 }

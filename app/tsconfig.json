@@ -19,6 +19,7 @@
     "jsxFactory": "React.createElement",
     "allowJs": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types",
       "global.d.ts"
@@ -26,7 +27,8 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "lib"
   ],
   "compileOnSave": false
 }
