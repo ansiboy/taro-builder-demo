@@ -1,3 +1,4 @@
-import "./component-editors/carousel";
-import "./component-editors/html-view";
-import "./component-editors/store-info"
+import "./carousel";
+import "./html-view/prop-editor";
+import "./store-info";
+import "./single-column-products/index";

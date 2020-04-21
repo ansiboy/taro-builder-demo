@@ -9,7 +9,7 @@
         "@babel/preset-typescript": "^7.9.0",
         "less": "^3.11.1",
         "maishu-chitu": "^3.27.0",
-        "maishu-chitu-admin": "^2.116.10",
+        "maishu-chitu-admin": "^2.116.11",
         "maishu-chitu-react": "^1.27.0",
         "maishu-chitu-service": "^1.18.0",
         "maishu-dilu": "^1.7.3",

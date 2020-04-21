@@ -13,8 +13,13 @@ let settings: taroBuilder.Settings = {
         database: "taro-builder",
         user: "root",
         password: "111111",
-        port: 3306
+        port: 3306,
+        charset: "utf8"
     },
+    virtualPaths: {
+        // ue: path.join(__dirname, "static/lib/ueditor"),
+        // "lib/ueditor": path.join(__dirname, "static/lib/ueditor")
+    }
 }
 
 if (fs.existsSync("config.js")) {

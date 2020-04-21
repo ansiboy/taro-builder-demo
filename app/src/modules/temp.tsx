@@ -2,6 +2,7 @@ import { View, ScrollView } from "@tarojs/components";
 import { Carousel, SingleColumnProducts } from "../components/index";
 import React from "react";
 import { StoreInfo } from "../components/store-info";
+import { HtmlView } from "../components/html-view";
 
 export default class PageView extends React.Component {
     constructor(props) {
@@ -52,7 +53,10 @@ export default class PageView extends React.Component {
             //     <View style={vStyleB}>B</View>
             //     <View style={vStyleC}>C</View>
             // </ScrollView>
-            <StoreInfo />
+            <View>
+                <HtmlView />
+                <StoreInfo />
+            </View>
         )
     }
 }
