@@ -11,7 +11,6 @@ export default {
     "modules/account-security/login-password",
     "modules/account-security/pay-password",
     "modules/account-security/mobile-binding",
-
     "modules/shopping/order-list",
   ],
   window: {

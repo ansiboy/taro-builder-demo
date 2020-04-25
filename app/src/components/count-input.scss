@@ -1,0 +1,37 @@
+@import "../variables.scss";
+
+.count-input {
+
+    $input-min-height: 24px * $hd;
+
+
+    .button {
+        border    : 1px * $hd solid #cccccc;
+        width     : $input-min-height;
+        height    : $input-min-height;
+        float     : left;
+        text-align: center;
+
+        .at-icon {
+            margin-top: 2px * $hd;
+        }
+    }
+
+    .number {
+        float     : left;
+        height    : $input-min-height;
+        width     : 30px * $hd;
+        border    : 1px * $hd solid #cccccc;
+        text-align: center;
+    }
+
+    .minus {
+        @extend .button;
+    }
+
+    .plus {
+        @extend .button;
+    }
+
+    display: flex;
+}

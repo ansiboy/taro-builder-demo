@@ -2,12 +2,14 @@ import { component } from "maishu-jueying-core";
 import { Repeater, RepeaterItem } from "../data-controls/index";
 import { services, ShoppingService } from "../services/index";
 import React from "react";
-import { View, Text } from "@tarojs/components";
-import { AtList, AtListItem } from "taro-ui";
+import { View, Text, Image, Button } from "@tarojs/components";
 import "./single-column-products.scss";
 import { DataSource, DataSourceSelectResult } from "maishu-toolkit";
 
 import { Props } from "./single-column-products.d";
+import { imagePath } from "../common";
+
+import { CountInput } from "./count-input";
 
 export interface State {
     categories: Category[],
@@ -59,35 +61,43 @@ export class SingleColumnProducts extends React.Component<Props, State> {
     render() {
         let { categories } = this.state;
         return <View className="single-colunm-products">
-            <AtList className="categories" hasBorder={false}>
+            <View className="categories">
                 {categories.map(c =>
-                    <AtListItem key={c.Id} title={c.Name}>
+                    <View className="item" key={c.Id}>
                         {c.Name}
-                    </AtListItem>
+                    </View>
                 )}
-            </AtList>
+            </View>
             <View className="product-list">
                 <Repeater dataSource={new DataSource({ primaryKeys: ["Id"], select: () => this.loadData(this.props) })}>
                     <RepeaterItem.Consumer>
                         {args => {
                             let p: Product = args.dataItem;
-                            return <View>
-                                <View className="item at-row">
-                                    {p.Name}
-                                </View>
-                                <View className="item at-row">
-                                    <View className="at-col at-col-6">
+                            return <View className="item spliter">
+                                <Image className="image" src={imagePath(p.ImagePath)} />
+                                <View className="content">
+                                    <View className="name">
+                                        {p.Name}
+                                    </View>
+                                    <View className="price">
+                                        <Text className="price-color">￥{p.Price.toFixed(2)}</Text>
+                                        <CountInput />
+                                    </View>
+                                    {/* <Image src={imagePath(p.ImagePath)} style={{ width: 80, height: 80 }} /> */}
+                                    {/* <View className="at-col at-col-6">
                                         <Text>价格</Text>{p.Price.toFixed(2)}
                                     </View>
                                     <View className="at-col at-col-6" style={{ textAlign: "right" }}>
-                                        {/* <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
+
+                                    </View> */}
+                                    {/* <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
                                             onChange={(value) => {
                                                 productCounts[p.Id] = value;
                                                 this.setState({ productCounts });
                                             }} /> */}
-                                    </View>
                                 </View>
-                                {args.index < args.count - 1 ? <View style={{ backgroundColor: "#eeeeee", width: "100%", height: "2px" }} ></View> : null}
+                                {/* {args.index < args.count - 1 ? <View style={{ backgroundColor: "#eeeeee", width: "100%", height: "2px" }} ></View> : null} */}
+
                             </View>
                         }}
                     </RepeaterItem.Consumer>
@@ -96,3 +106,4 @@ export class SingleColumnProducts extends React.Component<Props, State> {
         </View >
     }
 }
+

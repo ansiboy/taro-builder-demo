@@ -1,5 +1,6 @@
 import Taor, { Config } from "@tarojs/taro";
 import { View } from "@tarojs/components";
+import React from "react";
 
 export default class SalesCenterPage extends Taro.Component {
 

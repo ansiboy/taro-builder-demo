@@ -13,7 +13,6 @@ interface TextInputProps<T> {
     dataType?: "string" | "number" | "date",
     title: string,
     placeholder?: string,
-    // required?: boolean,
     validateRules?: Rule[]
 }
 

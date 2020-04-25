@@ -9,7 +9,7 @@ export class Carousel extends React.Component {
             className='test-h'
             indicatorColor='#999'
             indicatorActiveColor='#333'
-            vertical
+            vertical={false}
             circular
             indicatorDots
             autoplay>

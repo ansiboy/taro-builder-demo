@@ -5,6 +5,7 @@ import { SingleColumnProducts } from "./single-column-products";
 
 export { Carousel } from "./carousel";
 export { SingleColumnProducts } from "./single-column-products";
+export { StoreInfo } from "./store-info";
 
 export function factory(componentData: ComponentData) {
     switch (componentData.name) {

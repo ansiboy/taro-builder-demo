@@ -4,32 +4,61 @@
     $categories-width: 100px * $hd;
 
     .categories {
-        width : $categories-width;
-        float : left;
-        border: 1px solid #cccccc;
+        width        : $categories-width;
+        float        : left;
+        border       : 1px * $hd solid #cccccc;
+        border-bottom: none;
+
+        .item {
+            padding      : 10px * $hd;
+            border-bottom: solid 1px * $hd #cccccc;
+        }
     }
 
     .product-list {
-        // width        : calc(100% - #{$categories-width + 15px * $hd});
-        padding-left : $categories-width + 7px * $hd;
         padding-right: 7px * $hd;
+        padding-top  : 10px * $hd;
+        padding-left : $categories-width;
 
         .item {
-            padding-top   : 10px;
-            padding-bottom: 10px;
-            font-size     : $font-size-base;
+            font-size: $font-size-base;
+            display  : flex;
+
+            $image-width: 60px * $hd;
+
+            .image {
+                width : $image-width;
+                height: $image-width;
+            }
+
+            .content {
+                width     : calc(100% - #{$image-width});
+                text-align: left;
+                padding   : 0 10px * $hd;
+
+                .name {}
+
+                .price {
+                    margin-top: 8px * $hd;
+
+                    .price-color {
+                        color: #f70;
+                    }
+                }
+            }
+
+            &.spliter {
+                border-bottom : 1px solid #cccccc;
+                padding-bottom: 10px * $hd;
+                margin-bottom : 10px * $hd;
+            }
         }
     }
 
-    .at-list {
-        &__item-content {
-            margin-right: 0px;
-        }
-
-        &__item::after {
-            left: 0;
-        }
+    .count-input {
+        float: right;
     }
 
 
 }
+
