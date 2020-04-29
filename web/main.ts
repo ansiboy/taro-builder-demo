@@ -19,7 +19,16 @@ let settings: taroBuilder.Settings = {
     virtualPaths: {
         // ue: path.join(__dirname, "static/lib/ueditor"),
         // "lib/ueditor": path.join(__dirname, "static/lib/ueditor")
-    }
+        // "taro-builder": path.join(__dirname, "node_modules/taro-builder")
+        // "lib/taro-ui/dist/style/components": path.join(__dirname, "node_modules/taro-ui/dist/style/components"),
+    },
+    // websiteConfig: {
+    //     requirejs: {
+    //         paths: {
+    //             "taro-ui": path.join(__dirname, "node_modules/taro-ui")
+    //         }
+    //     }
+    // }
 }
 
 if (fs.existsSync("config.js")) {

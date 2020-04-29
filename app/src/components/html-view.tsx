@@ -1,6 +1,6 @@
 import React from "react";
-import { component } from "maishu-jueying-core";
-import { View, RichText } from "@tarojs/components";
+import { component } from "taro-builder-core";
+import { RichText } from "@tarojs/components";
 
 export interface HtmlViewProps {
     html: string

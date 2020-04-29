@@ -10,6 +10,7 @@ interface Props<T> {
 export let RepeaterItem = React.createContext({ dataItem: null as any, index: -1, count: -1 })
 
 export class Repeater<T> extends React.Component<Props<T>> {
+    private loading: Loading<DataSourceSelectResult<T>>;
     constructor(props: Props<T>) {
         super(props);
         this.state = {};
@@ -27,8 +28,12 @@ export class Repeater<T> extends React.Component<Props<T>> {
         }
         return key;
     }
+    reload() {
+        this.loading.loadData();
+    }
     render() {
-        return <Loading<DataSourceSelectResult<T>> loadData={() => this.props.dataSource.select()}>
+        return <Loading<DataSourceSelectResult<T>> loadData={() => this.props.dataSource.select()}
+            ref={e => this.loading = e || this.loading}>
             <LoadingData.Consumer>
                 {args => {
                     let data = args.data as DataSourceSelectResult<T>;

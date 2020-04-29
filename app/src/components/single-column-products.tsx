@@ -1,15 +1,14 @@
-import { component } from "maishu-jueying-core";
 import { Repeater, RepeaterItem } from "../data-controls/index";
 import { services, ShoppingService } from "../services/index";
 import React from "react";
-import { View, Text, Image, Button } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
 import "./single-column-products.scss";
 import { DataSource, DataSourceSelectResult } from "maishu-toolkit";
 
-import { Props } from "./single-column-products.d";
 import { imagePath } from "../common";
-
 import { CountInput } from "./count-input";
+import { Props } from "./single-column-products.d";
+import { component } from "taro-builder-core";
 
 export interface State {
     categories: Category[],
@@ -17,14 +16,14 @@ export interface State {
     productCounts: { [key: string]: number },
 }
 
-
 @component({ displayName: "单列商品", icon: "icon-list", introduce: "单列展示商品" })
 export class SingleColumnProducts extends React.Component<Props, State> {
 
     static defaultProps: Props = {
         imageSize: "small", productNameLines: "singleLine", productSourceType: "all",
-        productsCount: 1000, showCategories: true, productIds: undefined,
+        productsCount: 1, showCategories: true, productIds: undefined,
     }
+    protected repeater: Repeater<Product>;
 
     constructor(props: Props) {
         super(props);
@@ -32,15 +31,13 @@ export class SingleColumnProducts extends React.Component<Props, State> {
             categories: ShoppingService.cacheCategories || [], shoppingCartItems: [],
             productCounts: {}
         };
-    }
 
-    componentDidMount() {
         services.shopping.categories().then(r => {
             this.setState({ categories: r });
         })
     }
 
-    async loadData(props: Props): Promise<DataSourceSelectResult<Product>> {
+    async loadProducts(props: Props): Promise<DataSourceSelectResult<Product>> {
         props = props || this.props
         let { categoryId, productsCount, productIds } = props;
         let sourceType = props.productSourceType;
@@ -58,18 +55,33 @@ export class SingleColumnProducts extends React.Component<Props, State> {
         let products = await productPromise;
         return { dataItems: products, totalRowCount: products.length };
     }
+
+    //========================================================
+    // 设计时支持
+    componentWillReceiveProps(props: Props) {
+        let self = this as any as React.Component<Props>;
+        let isChanged = props.productsCount != self.props.productsCount || props.showCategories != self.props.showCategories;
+        if (isChanged) {
+            setTimeout(() => {
+                this.repeater.reload();
+            }, 100);
+        }
+    }
+    //========================================================
+
     render() {
         let { categories } = this.state;
         return <View className="single-colunm-products">
-            <View className="categories">
+            {this.props.showCategories ? <View className="categories">
                 {categories.map(c =>
                     <View className="item" key={c.Id}>
                         {c.Name}
                     </View>
                 )}
-            </View>
+            </View> : null}
             <View className="product-list">
-                <Repeater dataSource={new DataSource({ primaryKeys: ["Id"], select: () => this.loadData(this.props) })}>
+                <Repeater dataSource={new DataSource({ primaryKeys: ["Id"], select: () => this.loadProducts(this.props) })}
+                    ref={e => this.repeater = this.repeater || e}>
                     <RepeaterItem.Consumer>
                         {args => {
                             let p: Product = args.dataItem;
@@ -83,21 +95,7 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                                         <Text className="price-color">￥{p.Price.toFixed(2)}</Text>
                                         <CountInput />
                                     </View>
-                                    {/* <Image src={imagePath(p.ImagePath)} style={{ width: 80, height: 80 }} /> */}
-                                    {/* <View className="at-col at-col-6">
-                                        <Text>价格</Text>{p.Price.toFixed(2)}
-                                    </View>
-                                    <View className="at-col at-col-6" style={{ textAlign: "right" }}>
-
-                                    </View> */}
-                                    {/* <AtInputNumber type="digit" value={productCounts[p.Id] || 0}
-                                            onChange={(value) => {
-                                                productCounts[p.Id] = value;
-                                                this.setState({ productCounts });
-                                            }} /> */}
                                 </View>
-                                {/* {args.index < args.count - 1 ? <View style={{ backgroundColor: "#eeeeee", width: "100%", height: "2px" }} ></View> : null} */}
-
                             </View>
                         }}
                     </RepeaterItem.Consumer>

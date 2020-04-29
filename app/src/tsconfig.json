@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "outDir": "../lib",
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "global.d.ts"
+    ]
+  },
+  "exclude": [
+    "../node_modules",
+    "../dist",
+    "../lib"
+  ],
+  "compileOnSave": false
+}

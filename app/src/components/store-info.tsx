@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image } from "@tarojs/components";
-import { component } from "maishu-jueying-core";
+import { component } from "taro-builder-core";
 import "./store-info.scss";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 let defaultLogo = "https://jdc.jd.com/img/200";
 let defaultName = "请输入标题";
 
-@component({ displayName: "店铺信息", icon: "icon-edit", introduce: "显示店铺基本信息" })
+@component({ displayName: "店铺信息", icon: "icon-edit", introduce: "显示店铺基本信息", group: "common" })
 export class StoreInfo extends React.Component<Props> {
 
     static defaultProps = { name: "", logo: "" }

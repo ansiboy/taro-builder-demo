@@ -5,7 +5,9 @@ import React = require("react");
 // import { ImageService } from "maishu-services-sdk";
 import { renderImage } from "maishu-ui-toolkit";
 // import { ProductSelectDialog } from "../../controls/product-select-dialog";
-import { Product, ComponentProps } from "./declare";
+import { Product } from "./declare";
+import { Props as ComponentProps } from "app/components/single-column-products.d";
+
 
 interface ProductSourceEditorState {
     products?: Product[]

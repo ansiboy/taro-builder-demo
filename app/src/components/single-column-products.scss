@@ -2,12 +2,14 @@
 
 .single-colunm-products {
     $categories-width: 100px * $hd;
+    display          : flex;
+    flex-direction   : row;
 
     .categories {
-        width        : $categories-width;
-        float        : left;
-        border       : 1px * $hd solid #cccccc;
-        border-bottom: none;
+        width           : $categories-width;
+        // float        : left;
+        border          : 1px * $hd solid #cccccc;
+        border-bottom   : none;
 
         .item {
             padding      : 10px * $hd;
@@ -16,9 +18,10 @@
     }
 
     .product-list {
-        padding-right: 7px * $hd;
-        padding-top  : 10px * $hd;
-        padding-left : $categories-width;
+        padding-right   : 7px * $hd;
+        padding-top     : 10px * $hd;
+        // padding-left : $categories-width;
+        width           : 100%;
 
         .item {
             font-size: $font-size-base;
@@ -61,4 +64,3 @@
 
 
 }
-

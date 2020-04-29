@@ -1,33 +1,25 @@
-export interface Rule {
-    validate: (value) => boolean | Promise<boolean>,
-    error?: ErrorMessage,
-    type: keyof typeof rules,
-}
-
-type ErrorMessage = string | (() => string);
-
-export let rules = {
-    required(msg?: ErrorMessage): Rule {
-        let obj: Rule = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.rules = {
+    required(msg) {
+        let obj = {
             type: "required",
             validate(value) {
                 return (value || "") != "";
             },
             error: msg,
-        }
-
+        };
         return obj;
     },
-    mobile(msg?: ErrorMessage) {
+    mobile(msg) {
         let mobileRegex = /^1[34578]\d{9}$/;
-        let obj: Rule = {
+        let obj = {
             type: "mobile",
             validate(value) {
                 return mobileRegex.test(value);
             },
             error: msg,
-        }
+        };
         return obj;
     }
-}
-
+};

@@ -1,7 +1,9 @@
-import { Component, PropEditor, ComponentData, DropDownItem } from "maishu-jueying";
-import { Props as ComponentProps } from "../../../../app/src/components/single-column-products.d";
+import { Component, PropEditor, DropDownItem } from "maishu-jueying";
+import { Props as ComponentProps } from "./declare";
 import { ProductSourceEditor } from "./product-source-editor";
 import { toggle } from "../prop-editors/index";
+import { ComponentData } from "taro-builder-core";
+import "./single-column-products";
 
 let imageSize: keyof ComponentProps = "imageSize";
 let productNameLines: keyof ComponentProps = "productNameLines";
@@ -24,7 +26,7 @@ Component.setPropEditor({
     componentType,
     propName: productIds,
     editorType: ProductSourceEditor,
-    display: (componentData: ComponentData) => {
+    display: (componentData) => {
         let props = componentData.props as ComponentProps;
         return props.productSourceType == "custom";
     },
@@ -37,7 +39,7 @@ Component.setPropEditor({
     propName: categoryId,
     editorType: PropEditor.dropdown(getCategories(), "string"),
     displayName: "品类",
-    display: (componentData: ComponentData) => {
+    display: (componentData) => {
         let props = componentData.props as ComponentProps;
         return props.productSourceType == "category";
     }
