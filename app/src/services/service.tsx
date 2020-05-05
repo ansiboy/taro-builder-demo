@@ -1,3 +1,4 @@
+import "@tarojs/taro";
 import Taro from "@tarojs/taro";
 import { Service, AjaxOptions } from "maishu-chitu-service";
 

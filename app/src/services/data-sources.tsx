@@ -1,5 +1,6 @@
 import { DataSource } from "maishu-toolkit";
 import { services } from "./index";
+import { ReceiptInfo, Product } from "../models/models";
 
 export let dataSources = {
     receiptInfo: new DataSource<ReceiptInfo>({

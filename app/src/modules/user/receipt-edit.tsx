@@ -8,6 +8,7 @@ import { events } from "../../events";
 import { dataSources } from "../../services/data-sources";
 import React from "react";
 import { parseUrl } from "maishu-toolkit";
+import { ReceiptInfo, Region } from "../../models/models";
 
 interface Props {
     tid: string

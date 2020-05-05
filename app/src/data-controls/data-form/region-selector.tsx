@@ -3,11 +3,12 @@ import { Picker, View } from "@tarojs/components";
 import { guid } from "maishu-toolkit";
 import { DataFormContext, DataFormContextValue } from "./data-form";
 import { InputControl } from "./input-control";
-import { services } from "../../services";
+import { services } from "../../services/index";
 import { AtInput } from "taro-ui";
 import { Rule } from "./rules";
 import { defaultErrors } from "./default-errors";
 import React from "react";
+import { Region } from "../../models/models";
 
 interface Props<T> {
     title: string

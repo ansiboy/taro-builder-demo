@@ -8,12 +8,12 @@
     .categories {
         width           : $categories-width;
         // float        : left;
-        border          : 1px * $hd solid #cccccc;
-        border-bottom   : none;
+        border-top      : 1px * $hd solid #cccccc;
 
         .item {
-            padding      : 10px * $hd;
-            border-bottom: solid 1px * $hd #cccccc;
+            padding   : 10px * $hd;
+            border    : solid 1px * $hd #cccccc;
+            border-top: none;
         }
     }
 

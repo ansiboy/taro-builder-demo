@@ -1,15 +1,10 @@
-interface Brand {
+export interface Brand {
     Id: string;
     Name: string;
     Image?: string;
 }
 
-
-
-
-
-
-interface Coupon {
+export interface Coupon {
     Id: string,
     Amount: number,
     Discount: number,
@@ -17,8 +12,10 @@ interface Coupon {
     Title: string,
     ValidBegin: Date,
     ValidEnd: Date,
+    Ranges: PromotionRangeRule[],
 }
-interface CouponCode {
+
+export interface CouponCode {
     Id: string,
     Amount: number,
     Code: string,
@@ -32,8 +29,10 @@ interface CouponCode {
     ValidEnd: Date,
     UsedDateTime: Date,
     CreateDateTime: Date,
+    Content: string,
 }
-interface ReceiptInfo {
+
+export interface ReceiptInfo {
     Address: string,
     CityId: string,
     CityName: string,
@@ -52,38 +51,31 @@ interface ReceiptInfo {
     RegionId: string
 }
 
-interface ProductComent {
+export interface ProductComent {
     Id: string,
     Name: string,
     ImageUrl: string,
     Status: 'Evaluated' | 'ToEvaluate',
     OrderDetailId: string,
 }
-interface FavorProduct {
+
+export interface FavorProduct {
     Id: string;
     ProductId: string,
     ProductName: string,
     ImageUrl: string
 }
 
-interface OrderDetail {
-    // Id: string,
-    ImageUrl: string,
-    // ImagePath: string,
-    ProductId: string,
-    ProductName: string,
-    Price: number,
-    Quantity: number,
-    Score: number
-}
-interface Region {
+
+
+export interface Region {
     Id: string,
     Name: string,
     ParentId?: string,
     SortNumber?: number
 }
 
-interface ShoppingCartItem {
+export interface ShoppingCartItem {
     Id: string,
     Amount: number,
     Count: number,
@@ -99,19 +91,19 @@ interface ShoppingCartItem {
     Type?: 'Reduce' | 'Discount'
 }
 
-interface Province {
+export interface Province {
     Id: string,
     Name: string
     Cities: Array<Citie>
 }
-interface Citie {
+export interface Citie {
     Id: string,
     Name: string,
 }
 
 
 
-interface UserInfo {
+export interface UserInfo {
     Id: string;
     NickName: string;
 
@@ -134,7 +126,7 @@ interface UserInfo {
 
 
 
-interface ControlData {
+export interface ControlData {
     controlId: string, controlName: string, data?: any
     selected?: boolean | 'disabled',
     position: 'header' | 'view' | 'footer',
@@ -198,4 +190,197 @@ interface DataSourceSelectArguments {
     maximumRows?: number;
     sortExpression?: string;
     filter?: string;
+}
+
+export type PromotionType = 'Given' | 'Reduce' | 'Discount';
+export type PromotionMethod = 'Count' | 'Amount';
+export interface Promotion {
+    Id: string,
+    Type: PromotionType,
+    Method: PromotionMethod,
+    IsAll: boolean,
+    CreateDateTime: Date,
+    PromotionContentRules: PromotionContentRule[],
+    PromotionRangeRules: PromotionRangeRule[]
+    Contents: {
+        Id: string,
+        Description: string
+    }[],
+}
+
+export interface PromotionContentRule {
+    Id: string,
+    LevelValue: number,
+    // Type: string,
+    // Method: string,
+    Description?: string,
+    // ObjectType: string,
+    // ObjectId: string,
+    // ObjectName: string,
+    // CollectionType: string,
+    GivenValue: string,
+    PromotionId: string,
+    CreateDateTime: Date,
+}
+
+export interface PromotionRangeRule {
+    Id: string,
+    ObjectType: "Category" | "Product" | "Brand",
+    ObjectId: string,
+    ObjectName: string,
+    CollectionType: 'Include' | 'Exclude'
+    PromotionId?: string,
+    CreateDateTime: Date
+}
+
+export interface PromotionActivity {
+    Id: string,
+    Name: string,
+    BeginDate: Date,
+    EndDate: Date,
+}
+
+export type OrderStatus = 'WaitingForPayment' | 'Send' | 'Paid' |
+    'ToEvaluate' | 'Canceled' | 'Evaluated' | 'Received';
+
+export interface Order {
+    ApplicationId: string;
+    Id: string,
+    /** 订单日期 */
+    OrderDate: Date,
+    /** 收件人 */
+    Consignee: string,
+    /** 收货人地址 */
+    ReceiptAddress: string,
+    /** 状态 */
+    Status: OrderStatus
+    /** 状态文字 */
+    StatusText: string,
+    /** 序列号 */
+    Serial: string,
+    /** 运费 */
+    Freight: number,
+    /** 发票信息 */
+    Invoice: string,
+    /** 备注 */
+    Remark: string,
+    /** 合计金额 */
+    Sum: number,
+    OrderDetails: OrderDetail[]
+    Amount: number,
+    CouponTitle: string,
+    Discount: number,
+    // StatusText: string,
+    CustomerId: string,
+    MemberName: string,
+}
+
+export interface OrderDetail {
+    // Id: string,
+    ImageUrl: string,
+    // ImagePath: string,
+    ProductId: string,
+    ProductName: string,
+    Price: number,
+    Quantity: number,
+    Score: number,
+    Id: string,
+    Unit: string,
+}
+
+export interface FreightSolution {
+    Id?: string,
+    Name: string,
+    IsDefault: boolean,
+    DefaultFreight?: number,
+}
+
+export interface ProductFreight {
+    Id: string,
+    Name: string,
+    ObjectId: string,
+    ObjectType: string,
+    SolutionId: string,
+    SolutionName: string
+}
+
+
+
+
+export interface CityFreight {
+    Id: string,
+    /** 配送金额 */
+    SendAmount: number,
+    /** 运费 */
+    Freight: number,
+    /** 配送范围 */
+    SendRadius: number,
+}
+
+export interface ProductCategory {
+    Id: string, Name: string, ParentId?: string,
+    SortNumber?: number, Remark?: string, Hidden?: boolean,
+    ImagePath?: string
+}
+
+export type Category = ProductCategory;
+
+// interface Category {
+//     Id: string, Name: string, ParentId?: string,
+//     SortNumber?: number, Remark?: string, Hidden?: boolean,
+//     ImagePath?: string
+// }
+
+export interface Product {
+    Id: string;
+    BuyLimitedNumber: number;
+    // ChildrenCount: number;
+    Name: string;
+    Unit: string;
+    OffShelve?: boolean;
+    MemberPrice: number;
+    Price: number;
+    CostPrice: string;
+    Introduce: string;
+    ImagePath: string;
+    // ImagePaths: string[];
+    ImageCover: string;
+    Score: number;
+    ProductCategoryId: string,
+    BrandId: string,
+    SKU: string,
+    Stock: number;
+    ParentId: string,
+    Fields: { key: string, value: string }[],
+    Arguments: { key: string, value: string }[],
+    Title: string,
+    // CustomProperties: Array<CustomProperty>,
+    Promotions: Promotion[],
+    GroupId: string,
+    ProductCategoryName: string,
+    FreightSolutionId: string,
+    SortNumber?: number
+}
+
+export interface CustomProperty {
+    Name: string,
+    Options: Array<{ Name: string, Selected: boolean, Value: string }>
+}
+
+
+
+export interface RegionFreight {
+    Id: string,
+    FreeAmount: number,
+    Freight: number,
+    RegionId: string,
+    RegionName: string,
+    SolutionId: string
+}
+
+export interface ShipInfo {
+    Id?: string,
+    ExpressBillNo: string;
+    ExpressCompany: string;
+
 }

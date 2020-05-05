@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
+        "esModuleInterop": true,
         "target": "ES6",
         "module": "CommonJS",
         "jsx": "react",
@@ -10,7 +11,7 @@
                 "./node_modules/taro-builder/out/static/index.d.ts"
             ],
             "app/components/*": [
-                "../app/src/components/*"
+                "../app/out/components/*"
             ]
         }
     },

@@ -2,6 +2,12 @@ import { imageUrl } from './service';
 import { config } from '../config';
 
 import { MyService } from "./service";
+import {
+    Region, ProductComent, FavorProduct, OrderDetail, Order,
+    ReceiptInfo, CouponCode, Coupon, OrderStatus, Product, CustomProperty,
+    ProductCategory
+} from '../models/models';
+import { DataSourceSelectArguments } from 'maishu-toolkit';
 
 export class ShoppingService extends MyService {
     private _regions: Region[];
@@ -128,7 +134,7 @@ export class ShoppingService extends MyService {
             let r = await this.getByJson<ProductCategory[]>(url);
             ShoppingService.cacheCategories = r;
         }
-        
+
         return ShoppingService.cacheCategories;
     }
     toCommentProducts() {

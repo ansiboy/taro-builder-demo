@@ -7,6 +7,7 @@ import { Repeater, RepeaterItem } from '../../data-controls';
 import { View, Switch, Text } from '@tarojs/components';
 import Taro from "@tarojs/taro";
 import { pages } from '../../config';
+import { ReceiptInfo } from '../../models/models';
 
 interface Props {
 

@@ -2,8 +2,6 @@ import { Component, PropEditor, DropDownItem } from "maishu-jueying";
 import { Props as ComponentProps } from "./declare";
 import { ProductSourceEditor } from "./product-source-editor";
 import { toggle } from "../prop-editors/index";
-import { ComponentData } from "taro-builder-core";
-import "./single-column-products";
 
 let imageSize: keyof ComponentProps = "imageSize";
 let productNameLines: keyof ComponentProps = "productNameLines";

@@ -1,3 +1,4 @@
+import "@tarojs/taro";
 import { View, Swiper, SwiperItem } from "@tarojs/components";
 import { component } from "taro-builder-core";
 import React from "react";
