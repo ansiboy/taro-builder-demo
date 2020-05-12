@@ -1,4 +1,4 @@
-import { Repeater, RepeaterItem } from "../data-controls/index";
+import { Repeater, RepeaterItem, Empty } from "../data-controls/index";
 import { services, ShoppingService } from "../services/index";
 import React from "react";
 import { View, Text, Image } from "@tarojs/components";
@@ -10,6 +10,7 @@ import { CountInput } from "./count-input";
 // import { Props } from "./single-column-products.d";
 import { component } from "taro-builder-core";
 import { Category, ShoppingCartItem, Product } from "../models/models";
+import { RepeaterEmtpy } from "../data-controls/repeater/repeater";
 export { Category, ShoppingCartItem } from "../models/models";
 
 export interface State {
@@ -75,18 +76,6 @@ export class SingleColumnProducts extends React.Component<Props, State> {
         return { dataItems: products, totalRowCount: products.length };
     }
 
-    //========================================================
-    // 设计时支持
-    componentWillReceiveProps(props: Props) {
-        let self = this as any as React.Component<Props>;
-        let isChanged = props.productsCount != self.props.productsCount || props.showCategories != self.props.showCategories;
-        if (isChanged) {
-            setTimeout(() => {
-                this.repeater.reload();
-            }, 100);
-        }
-    }
-    //========================================================
 
     render() {
         let { categories } = this.state;
@@ -118,6 +107,9 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                             </View>
                         }}
                     </RepeaterItem.Consumer>
+                    <RepeaterEmtpy.Consumer>
+                        {args => <Empty text="暂无所要显示的商品" icon="" />}
+                    </RepeaterEmtpy.Consumer>
                 </Repeater>
             </View>
         </View >

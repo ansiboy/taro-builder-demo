@@ -1,5 +1,5 @@
 import { Component, PropEditor, DropDownItem } from "maishu-jueying";
-import { Props as ComponentProps } from "./declare";
+import { Props as ComponentProps } from "app/components/single-column-products";
 import { ProductSourceEditor } from "./product-source-editor";
 import { toggle } from "../prop-editors/index";
 

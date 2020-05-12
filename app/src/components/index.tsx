@@ -6,3 +6,4 @@ export { HtmlView } from "./html-view";
 export { Menu } from "./menu";
 
 export { PageFooter } from "./footer";
+export { ShoppingCartBar } from "./shopping-cart-bar";

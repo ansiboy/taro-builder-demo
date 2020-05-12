@@ -1,0 +1,82 @@
+@import "../variables.scss";
+
+.settlement {
+    $P               : 6px;
+    $B               : 1px;
+    $H               : 50px;
+    width            : calc(100% - $B*2*$hd);
+    height           : ($H - $B*2) * $hd;
+    // padding-right : 10px;
+    // padding-top   : 10px;
+    // padding-bottom: 10px;
+    padding          : 0;
+    border           : 1px*$hd solid #ccc;
+
+    .icon {
+        float      : left;
+        margin-top : 10px*$hd;
+        margin-left: 10px*$hd;
+        // padding: 10px * $hd 0 0 10px * $hd;
+    }
+
+    .btn {
+        width           : 80px*$hd;
+        float           : right;
+        height          : 34px * $hd;
+        line-height     : unset;
+        border-radius   : 0;
+        padding-top     : 8px*$hd;
+        margin-top      : 8px*$hd;
+        margin-right    : 10px*$hd;
+        color           : white;
+        background-color: #bf0705;
+        font-size       : 14px*$hd;
+
+        ::after {
+            border-radius: 0;
+        }
+
+        .WEB & {
+            padding-top: 5px*$hd;
+        }
+    }
+
+    .at-icon {
+        font-size: 25px * $hd;
+    }
+
+    .total {
+        float       : right;
+        font-weight : bold;
+        margin-top  : 14px*$hd;
+        margin-right: 0px*$hd;
+    }
+
+    .price {
+        float       : right;
+        color       : #f70;
+        font-weight : bold;
+        margin-top  : 14px*$hd;
+        margin-right: 14px*$hd;
+        margin-left : -4px*$hd;
+    }
+
+    .badge {
+        position: relative;
+        top     : -10px * $hd;
+        left    : -10px * $hd;
+
+        background-color: #bf0705;
+        display         : inline-block;
+        min-width       : 10px * $hd;
+        padding         : 3px * $hd 7px * $hd;
+        font-size       : 12px * $hd;
+        font-weight     : bold;
+        line-height     : 1;
+        color           : #fff;
+        text-align      : center;
+        white-space     : nowrap;
+        vertical-align  : middle;
+        border-radius   : 10px * $hd;
+    }
+}

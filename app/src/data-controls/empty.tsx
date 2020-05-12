@@ -15,7 +15,7 @@ export class Empty extends React.Component<EmptyProps> {
     render() {
         return <View className="empty" onClick={this.props.onClick}>
             <View className="icon">
-                <AtIcon value={this.props.icon} size={style.emptyIconSize} />
+                {/* <AtIcon value={this.props.icon} size={style.emptyIconSize} /> */}
             </View>
             <View className="text">
                 {this.props.text}

@@ -1,6 +1,8 @@
 import React from "react";
 import "../components";
 import { PageData, parseComponentData, Page } from "taro-builder-core";
+import { View } from "@tarojs/components";
+import { ShoppingCartBar } from "../components";
 // import "taro-ui/dist/style/components/input-number.scss";
 // import "taro-ui/dist/style/components/icon.scss";
 // import "../components/store-info.scss";
@@ -101,8 +103,9 @@ export default class PageView extends React.Component {
             color: '#333'
         }
 
-        let elements = pageData.children.map(c => parseComponentData(c));
+        let elements = pageData.children.map(c => parseComponentData(c as any));
         console.log("HHH")
-        return <Page pageData={pageData} />
+        // return <Page pageData={pageData} />
+        return <ShoppingCartBar />
     }
 }
