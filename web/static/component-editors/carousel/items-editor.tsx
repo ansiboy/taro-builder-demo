@@ -29,6 +29,10 @@ export class ItemsEditor extends PropEditor<PropEditorState<CarouselItem[]>, Car
         });
     }
 
+    componentWillUpdate() {
+        return false;
+    }
+
     render() {
         let props = Object.assign({}, Carousel.defaultProps, this.props.editComponents[0].props) as ComponentProps;
         let { itemScale, clickType, items } = props;
@@ -43,9 +47,25 @@ export class ItemsEditor extends PropEditor<PropEditorState<CarouselItem[]>, Car
                 {items.map((o, i) =>
                     <li key={i} style={{ width: itemWidth }}>
                         <div className="form-group">
-                            <img key={o.image} src={this.imageService.imageSource(o.image, 100)} />
+                            <img key={o.image} src={this.imageService.imageSource(o.image, null, 120)} />
                         </div>
-                        {clickType == 'openPage' ?
+                        <div className="bottom-bar">
+                            设置页面
+                        </div>
+                        <div className="top-bar">
+                            <i className="icon-remove" ref={(e: HTMLButtonElement) => {
+                                if (!e) return;
+                                ui.buttonOnClick(e, () => {
+                                    items = items.filter(c => c != o);
+                                    // this.state.items = items;
+                                    // this.setState(this.state);
+                                    this.props.updateComponentProp(items);
+                                    return Promise.resolve();
+                                }, { confirm: '确定删除吗' })
+
+                            }} />
+                        </div>
+                        {/* {clickType == 'openPage' ?
                             <div className="form-group">
                                 <input className="form-control" placeholder="请输入和图片对应的链接" />
                             </div> : null
@@ -65,7 +85,7 @@ export class ItemsEditor extends PropEditor<PropEditorState<CarouselItem[]>, Car
                                 }}>
                                 删除
                             </button>
-                        </div>
+                        </div> */}
                     </li>
                 )}
                 <li style={{ width: itemWidth, color: 'unset' }} className="btn-link" onClick={() => this.showImageDialog()}>

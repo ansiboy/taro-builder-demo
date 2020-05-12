@@ -1,13 +1,16 @@
 .carousel-editor {
     ul.carousel-items {
-        @item_height: 120px;
-        @item_width : 200px;
+        @item_height   : 120px;
+        // @item_width : 200px;
+
+        display  : flex;
+        flex-wrap: wrap;
 
         li {
-            float        : left;
-            width        : @item_width;
             margin-right : 10px;
             margin-bottom: 10px;
+            min-width    : 120px;
+            min-height   : 80px;
 
             &:last-child {
                 background-color: white;
@@ -19,24 +22,24 @@
 
             @bottom_height: 26px;
 
-            .bottom {
-                position        : absolute;
-                // width        : calc(100% - 32px);
-                width           : @item_width;
-                height          : @bottom_height;
-                background-color: rgba(0, 0, 0, 0.55);
-                color           : white;
-                margin-top      : @item_height - @bottom_height;
-                text-align      : center;
+            // .bottom {
+            //     position           : absolute;
+            //     // width        : calc(100% - 32px);
+            //     // width           : @item_width;
+            //     height             : @bottom_height;
+            //     background-color   : rgba(0, 0, 0, 0.55);
+            //     color              : white;
+            //     margin-top         : @item_height - @bottom_height;
+            //     text-align         : center;
 
-                .btn-link {
-                    color: white;
-                }
+            //     .btn-link {
+            //         color: white;
+            //     }
 
-                button {
-                    width: 100%;
-                }
-            }
+            //     button {
+            //         width: 100%;
+            //     }
+            // }
 
             .icon-remove {
                 position   : absolute;
@@ -45,11 +48,44 @@
             }
 
             img {
-                width     : 100%;
-                max-height: @item_height;
-                border    : solid 1px #ccc;
+                width : 100%;
+                height: @item_height;
+                border: solid 1px #ccc;
             }
 
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .bottom-bar {
+            background-color: rgba(0, 0, 0, 0.55);
+            height          : 24px;
+            position        : relative;
+            top             : 0;
+            margin-top      : -24px;
+            text-align      : center;
+            color           : white;
+        }
+
+        .top-bar {
+            // background-color: rgba(0, 0, 0, 0.55);
+            // color     : white;
+            height    : 24px;
+            position  : relative;
+            margin-top: -24px;
+            top       : 0 - @item_height + 24px;
+            text-align: center;
+            cursor    : pointer;
+
+            i.icon-remove {
+                float       : right;
+                margin-top  : 5px;
+                margin-right: 5px;
+                font-weight : bold;
+                color       : #bf0705;
+            }
         }
     }
 }
