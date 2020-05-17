@@ -1,7 +1,7 @@
 import { Component, PropEditor, DropDownItem } from "maishu-jueying";
 import { Props as ComponentProps } from "app/components/single-column-products";
 import { ProductSourceEditor } from "./product-source-editor";
-import { toggle } from "../prop-editors/index";
+import { toggle } from "../custom-prop-editors";
 
 let imageSize: keyof ComponentProps = "imageSize";
 let productNameLines: keyof ComponentProps = "productNameLines";

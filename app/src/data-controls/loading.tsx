@@ -38,32 +38,38 @@ export class Loading<T> extends React.Component<LoadingProps<T>, LoadingState<T>
     }
     render() {
         let { status, data, error } = this.state;
-        if (status == "loading") {
-            return <View className="loading-control loading">数据正在加载中...</View>
-        }
-        if (status == "fail") {
-            return <View className="loading-control fail" onClick={() => this.loadData()}>
-                数据加载失败，点击重新加载
+        let main: JSX.Element;
+        switch (status) {
+            case "loading":
+                main = <View className="loading">数据正在加载中...</View>
+                break;
+            case "fail":
+                main = <View className="fail" onClick={() => this.loadData()}>
+                    数据加载失败，点击重新加载
                 <View className="title">错误信息</View>
-                <View className="detail">
-                    {error?.message}
+                    <View className="detail">
+                        {error?.message}
+                    </View>
                 </View>
-            </View>
-        }
-        if (status == "empty") {
-            return <Empty icon="file-generic" text="暂无数据" />
-        }
+                break;
+            case "empty":
+                main = <Empty icon="file-generic" text="暂无数据" />
+                break;
+            case "success":
+                main = <View style={{ paddingTop: 0 }}>
+                    <LoadingData.Provider value={{ data }}>
+                        {this.props.children}
+                    </LoadingData.Provider>
+                </View>
+                break;
+            default:
+                main = <View>
+                    Unkonown status {status}.
+                </View>
 
-        if (status == "success") {
-            return <View style={{ paddingTop: 0 }}>
-                <LoadingData.Provider value={{ data }}>
-                    {this.props.children}
-                </LoadingData.Provider>
-            </View>
         }
-
-        return <View>
-            Unkonown status {status}.
+        return <View className="loading-control">
+            {main}
         </View>
     }
 }

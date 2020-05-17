@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.category-products {
+    .tabs {
+        width        : 2000px * $hd;
+        padding      : 0 0 10px * $hd 10px * $hd;
+        margin-top   : -5px * $hd;
+        margin-bottom: 8px * $hd;
+
+        .tab {
+            font-size     : $font-size-base;
+            margin-right  : 10px * $hd;
+            padding-bottom: 4px * $hd;
+
+            &.active {
+                font-weight  : bold;
+                border-bottom: solid 4px #bf0705;
+            }
+        }
+    }
+}

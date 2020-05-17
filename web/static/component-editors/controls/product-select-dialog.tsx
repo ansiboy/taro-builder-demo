@@ -4,7 +4,7 @@ import ImageThumber from './image-thumber';
 import { createDialogElement } from './utiltiy';
 import React = require('react');
 import ReactDOM = require('react-dom');
-import * as wuzhui from "maishu-wuzhui";
+import * as wuzhui from "maishu-wuzhui-helper";
 import * as ui from "maishu-ui-toolkit";
 import { errorHandle } from "maishu-chitu-admin/static";
 import { Less } from 'maishu-ui-toolkit';
@@ -22,41 +22,24 @@ type ProductsDialogProps = {
 
 type ProductsDialogState = {
     products?: Product[],
-    selecteItems: Product[],
+    selectedIds: string[],
 }
 
-export declare interface Props {
-    /** 商品来源 */
-    productSourceType: 'category' | 'custom' | 'all',
-    /** 图片大小 */
-    imageSize: "small" | "medium" | "large",
-    /** 商品名称行数 */
-    productNameLines: 'singleLine' | 'doubleColumn',
-    /** 选取要展示的商品编号 */
-    productIds?: string[],
-    /** 商品数量 */
-    productsCount: number,
-    /** 商品类别 */
-    categoryId?: string,
-    /** 显示商品类别 */
-    showCategories: boolean,
-}
-
-let defaultState = () => ({ selecteItems: [] });
+type ConfirmSelectedProducts = (productIds: string[]) => Promise<any> | void;
 export class ProductSelectDialog extends React.Component<ProductsDialogProps, ProductsDialogState>{
 
     private dataSource: wuzhui.DataSource<Product>;
     private pagingBarElement: HTMLElement;
     private searchInput: HTMLInputElement;
-    private confirmSelectedProducts: (products: Product[]) => Promise<any> | void;
+    private confirmSelectedProducts: (productIds: string[]) => Promise<any> | void;
     private selectArguments: wuzhui.DataSourceSelectArguments;
     private shoppingService: ShoppingService;
     private imageService: ImageService;
 
-    constructor(props) {
+    constructor(props: ProductsDialogProps) {
         super(props);
 
-        this.state = defaultState();
+        this.state = { selectedIds: [] };
 
         this.shoppingService = new ShoppingService(err => errorHandle(err));
         this.imageService = new ImageService(err => errorHandle(err));
@@ -74,10 +57,21 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
         });
     }
 
-    static show(confirmSelectedProducts: (products: Product[]) => Promise<any> | void) {
+    static show(selectedIds: string[], confirmSelectedProducts: (productIds: string[]) => Promise<any> | void)
+    static show(confirmSelectedProducts: (productIds: string[]) => Promise<any> | void)
+    static show(selectedIdsOrCallback: string[] | ConfirmSelectedProducts, confirmSelectedProducts?: (productIds: string[]) => Promise<any> | void) {
+
+        let selectedIds: string[];
+        if (typeof selectedIdsOrCallback == "function") {
+            confirmSelectedProducts = selectedIdsOrCallback;
+            selectedIdsOrCallback = [];
+        }
+        else {
+            selectedIds = selectedIdsOrCallback;
+        }
+
         instance.confirmSelectedProducts = confirmSelectedProducts;
-        instance.state = defaultState();
-        instance.setState(instance.state);
+        instance.setState({ selectedIds });
 
         instance.selectArguments.startRowIndex = 0;
         instance.dataSource.select(instance.selectArguments);
@@ -86,16 +80,18 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
     }
 
     selecteProduct(p: Product) {
-        let selecteItems = this.state.selecteItems;
-        let item = selecteItems.filter(o => o.Id == p.Id)[0];
-        if (item) {
-            selecteItems = selecteItems.filter(o => o.Id != p.Id);
-            this.setState({ selecteItems })
+        let selecteIds = this.state.selectedIds;
+        let exists = selecteIds.filter(o => o == p.Id)[0] != null;
+
+        // 如果已经选择，则取消选择
+        if (exists) {
+            selecteIds = selecteIds.filter(o => o != p.Id);
+            this.setState({ selectedIds: selecteIds })
         }
         else {
-            selecteItems.push(p);
+            selecteIds.push(p.Id);
         }
-        this.setState({ selecteItems });
+        this.setState({ selectedIds: selecteIds });
     }
 
     setPagingBar(e: HTMLElement) {
@@ -128,7 +124,7 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
     }
 
     render() {
-        let { products, selecteItems } = this.state;
+        let { products, selectedIds } = this.state;
         let status: 'loading' | 'none' | 'finish';
         if (products == null)
             status = 'loading';
@@ -148,7 +144,7 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
                     </div>
                     <div className="modal-body">
                         <div className="input-group">
-                            <input type="text" className="form-control pull-right" placeholder="请输入SKU或名称、类别" style={{ width: '100%' }}
+                            <input type="text" className="form-control pull-right input-sm" placeholder="请输入SKU或名称、类别" style={{ width: '100%' }}
                                 ref={(e: HTMLInputElement) => this.searchInput = e || this.searchInput} />
                             <span className="input-group-btn">
                                 <button className="btn btn-primary btn-sm pull-right" onClick={() => this.search(this.searchInput.value)}>
@@ -169,12 +165,12 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
                         {status == 'finish' ?
                             <div className="products">
                                 {products.map(p => {
-                                    let selected = selecteItems.indexOf(p) >= 0;
-                                    return <div key={p.Id} className="product col-lg-2"
+                                    // let selected = selecteItems.indexOf(p) >= 0;
+                                    return <div key={p.Id} className="product"
                                         onClick={() => this.selecteProduct(p)}>
                                         <ImageThumber imagePath={this.imageService.imageSource(p.ImagePath)}
                                             text={p.Name}
-                                            selectedText={selecteItems.indexOf(p) >= 0 ? `${selecteItems.indexOf(p) + 1}` : ''} />
+                                            selectedText={selectedIds.indexOf(p.Id) >= 0 ? `${selectedIds.indexOf(p.Id) + 1}` : ''} />
                                     </div>
                                 }
 
@@ -195,7 +191,7 @@ export class ProductSelectDialog extends React.Component<ProductsDialogProps, Pr
                         <button name="ok" type="button" className="btn btn-primary"
                             onClick={() => {
                                 if (this.confirmSelectedProducts) {
-                                    this.confirmSelectedProducts(selecteItems)
+                                    this.confirmSelectedProducts(selectedIds)
                                 }
                                 ui.hideDialog(element);
                             }}>

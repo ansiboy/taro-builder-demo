@@ -1,6 +1,6 @@
 import ImageUpload from './image-upload';
 import ImageThumber from './image-thumber';
-import * as wuzhui from "maishu-wuzhui";
+import * as wuzhui from "maishu-wuzhui-helper";
 import { createDialogElement } from './utiltiy';
 import React = require('react');
 import ReactDOM = require('react-dom');

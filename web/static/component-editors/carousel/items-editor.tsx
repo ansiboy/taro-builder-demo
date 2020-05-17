@@ -1,5 +1,6 @@
 import { PropEditor, PropEditorState } from "maishu-jueying";
 import { CarouselItem, Props as ComponentProps, Carousel } from "app/components/carousel";
+import { defaultProps } from "app/components/default-props";
 import React = require("react");
 import * as ui from "maishu-ui-toolkit";
 import ImageManager from "../controls/image-manager";
@@ -34,7 +35,7 @@ export class ItemsEditor extends PropEditor<PropEditorState<CarouselItem[]>, Car
     }
 
     render() {
-        let props = Object.assign({}, Carousel.defaultProps, this.props.editComponents[0].props) as ComponentProps;
+        let props = Object.assign({}, defaultProps.carousel, this.props.editComponents[0].props) as ComponentProps;//Carousel.defaultProps,
         let { itemScale, clickType, items } = props;
 
         let itemWidth: number;

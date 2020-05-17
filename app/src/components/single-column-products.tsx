@@ -93,18 +93,7 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                     <RepeaterItem.Consumer>
                         {args => {
                             let p: Product = args.dataItem;
-                            return <View className="item spliter">
-                                <Image className="image" src={imagePath(p.ImagePath)} />
-                                <View className="content">
-                                    <View className="name">
-                                        {p.Name}
-                                    </View>
-                                    <View className="price">
-                                        <Text className="price-color">￥{p.Price.toFixed(2)}</Text>
-                                        <CountInput />
-                                    </View>
-                                </View>
-                            </View>
+                            return <ProductItem product={p} />
                         }}
                     </RepeaterItem.Consumer>
                     <RepeaterEmtpy.Consumer>
@@ -113,6 +102,24 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                 </Repeater>
             </View>
         </View >
+    }
+}
+
+export class ProductItem extends React.Component<{ product: Product }> {
+    render() {
+        let p = this.props.product
+        return <View className="item spliter">
+            <Image className="image" src={imagePath(p.ImagePath)} />
+            <View className="content">
+                <View className="name">
+                    {p.Name}
+                </View>
+                <View className="price">
+                    <Text className="price-color">￥{p.Price.toFixed(2)}</Text>
+                    <CountInput />
+                </View>
+            </View>
+        </View>
     }
 }
 

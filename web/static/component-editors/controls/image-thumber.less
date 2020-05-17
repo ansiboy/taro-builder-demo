@@ -47,12 +47,9 @@
         @selected_color: blue;
 
         &.selected {
-            img {
-                border: solid 1px @selected_color;
-            }
-
             @triangle_height: 8px;
             @size           : @triangle_height*2;
+            border-color    : @selected_color;
 
             .triangle {
                 position     : relative;

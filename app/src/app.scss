@@ -5,9 +5,14 @@
 }
 
 .footer {
-    position      : absolute;
-    bottom        : 0;
-    width         : 100%;
+    bottom          : 0;
+    width           : 100%;
+    position        : fixed;
+    background-color: white;
+
+    .WEB & {
+        position: absolute;
+    }
 }
 
 //=====================================================
@@ -17,7 +22,7 @@
 @font-face {
     font-family: 'FontAwesome';
     /* 自行安装第三方字体图标库 */
-    src: url('http://shop6.bailunmei.com/asset/lib/Font-Awesome-3.2.1/font/fontawesome-webfont.woff?v=3.2.1') format('woff');
+    src        : url('http://shop6.bailunmei.com/asset/lib/Font-Awesome-3.2.1/font/fontawesome-webfont.woff?v=3.2.1') format('woff');
 
     font-weight: normal;
     font-style : normal;
@@ -26,7 +31,7 @@
 /* 根据第三方字体图标库编写 */
 /* 举例：fa 就是 prefixClass 的值，下面的的图标 css class 命名都要用 fa- 开头  */
 .icon {
-    display: inline-block;
+    display                : inline-block;
     /* 以下的 font 与上面 @font-face 的 font-family 要一致*/
     font                   : normal normal normal 14px/1 FontAwesome;
     font-size              : inherit;

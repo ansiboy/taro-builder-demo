@@ -3,6 +3,7 @@ import { View, Swiper, SwiperItem } from "@tarojs/components";
 import { component } from "taro-builder-core";
 import React from "react";
 import { Product, Category, ShoppingCartItem } from "../models/models";
+import { defaultProps } from "./default-props";
 
 export interface CarouselItem {
     image: string, url: string, title: string
@@ -30,8 +31,8 @@ export interface State {
 
 @component({ displayName: "轮播", icon: "icon-list-alt", introduce: "多张图片轮流播放", group: "common" })
 export class Carousel extends React.Component {
-    
-    static defaultProps: Props = { autoplay: true, items: [], clickType: "openPage" };
+
+    static defaultProps: Props = defaultProps.carousel;
 
     render() {
         return <Swiper

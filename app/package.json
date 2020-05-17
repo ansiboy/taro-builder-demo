@@ -46,7 +46,7 @@
     "node-sass": "^4.14.0",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "taro-builder-core": "file:../../taro-builder-core",
+    "taro-builder-core": "^1.1.12",
     "taro-ui": "^3.0.0-alpha.0"
   },
   "devDependencies": {
@@ -64,6 +64,9 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^1.6.1",
+    "grunt": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "load-grunt-tasks": "^5.1.0",
     "stylelint": "9.3.0",
     "typescript": "^3.7.0"
   }

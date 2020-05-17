@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .single-colunm-products {
-    $categories-width: 100px * $hd;
+    $categories-width: 110px * $hd;
     display          : flex;
     flex-direction   : row;
 
@@ -14,6 +14,11 @@
             padding   : 10px * $hd;
             border    : solid 1px * $hd #cccccc;
             border-top: none;
+            font-size : $font-size-base;
+
+            &.active {
+                font-weight: bold;
+            }
         }
     }
 
@@ -38,8 +43,6 @@
                 width     : calc(100% - #{$image-width});
                 text-align: left;
                 padding   : 0 10px * $hd;
-
-                .name {}
 
                 .price {
                     margin-top: 8px * $hd;

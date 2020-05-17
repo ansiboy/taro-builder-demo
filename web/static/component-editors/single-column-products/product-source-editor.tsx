@@ -37,11 +37,11 @@ export class ProductSourceEditor extends PropEditor<ProductSourceEditorState, Co
             return;
 
         e.onclick = () => {
-            ProductSelectDialog.show((products) => {
+            ProductSelectDialog.show((selectedProductIds) => {
                 let productIds = this.props.value || [];
 
                 // 排除已存在的 product id
-                let newProductIds = products.map(o => o.Id).filter(o => productIds.indexOf(o) < 0)
+                let newProductIds = selectedProductIds.filter(o => productIds.indexOf(o) < 0)
                 productIds.push(...newProductIds);
 
                 //=================================================
