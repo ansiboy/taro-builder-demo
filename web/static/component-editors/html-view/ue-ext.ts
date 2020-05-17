@@ -4,9 +4,6 @@ export function createEditor(editorId: string, field: HTMLInputElement,
 
     window['UEDITOR_HOME_URL'] = "lib/ueditor/";
     requirejs(references, function () {
-
-        // window['UEDITOR_CONFIG'].serverUrl = `${location.protocol}//web.bailunmei.com/ueditor/net/controller.ashx`;
-
         (<any>window).ZeroClipboard = arguments[2];
         let UE = window['UE'];
         UE.delEditor(editorId);
