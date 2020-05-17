@@ -57,7 +57,7 @@ export default class CategoryProducts extends React.Component<Props, State> {
                     products = [];
                 }
                 else if (tab.categoryId) {
-                    products = await services.shopping.productsByCategory(tab.categoryId, Number.MAX_SAFE_INTEGER);
+                    products = await services.shopping.productsByCategory(tab.categoryId, 2000);
                 }
                 else {
                     products = await services.shopping.productsByIds(tab.productIds || []);

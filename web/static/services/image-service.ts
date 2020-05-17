@@ -43,10 +43,6 @@ export class ImageService extends Service {
     // static baseUrl: string
 
     protected url(path: string) {
-        // if (!ImageService.baseUrl)
-        //     throw errors.serviceUrlCanntNull('imageService')
-
-        // return `${ImageService.baseUrl}/${path}`;
         return pathContact(config.imageUrl, path);
     }
 
@@ -60,6 +56,11 @@ export class ImageService extends Service {
      * @param height 图片的高度，如果不指定则为实际图片的高度
      */
     imageSource(id: string, width?: number, height?: number) {
+        let isBase64 = id.startsWith('data:image')
+        if (isBase64) {
+            return id;
+        }
+
         if (id != null && id.startsWith("http://"))
             return id;
 
@@ -73,10 +74,6 @@ export class ImageService extends Service {
             return id;
         }
 
-        let isBase64 = id.startsWith('data:image')
-        if (isBase64) {
-            return id;
-        }
         let url = this.url('image')
         url = `${url}?id=${id}`;
         if (width != null)

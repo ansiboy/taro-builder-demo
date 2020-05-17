@@ -1,0 +1,19 @@
+.select-dialog {
+    .products {
+        display        : flex;
+        flex-wrap      : wrap;
+        justify-content: left;
+    }
+
+    .product {
+        width           : unset;
+        // float        : left;
+        position        : relative;
+        margin-right    : 14px;
+        margin-bottom   : 14px;
+    }
+
+    .image-thumber .item.selected .triangle {
+        left: calc(100% - 16px);
+    }
+}

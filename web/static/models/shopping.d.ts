@@ -12,7 +12,9 @@ export declare interface Product {
 }
 
 export declare interface ProductCategory {
-
+    Id: string
+    Name: string
+    ImagePath: string
 }
 
 export declare interface Brand {

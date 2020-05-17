@@ -2,8 +2,9 @@ import { Tab } from "app/components/category-products";
 import { PropEditor, PropEditorState } from "maishu-jueying";
 import React from "react";
 import { guid } from "maishu-toolkit";
-import { ProductSelectDialog } from "../controls/product-select-dialog";
 import { showTabDialog } from "./tab-dialog";
+import { categoryDialog } from "../controls/select-dialogs/category-select-dialog";
+import { productDialog } from "../controls/select-dialogs/product-select-dialog";
 
 export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
     /** 添加一级分类 */
@@ -37,8 +38,15 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
         }, parent, tab)
     }
     selectProduct(tab: Tab) {
-        ProductSelectDialog.show(tab.productIds || [], (productIds) => {
+        productDialog.show(tab.productIds || [], (productIds) => {
             tab.productIds = productIds;
+            let tabs = this.props.value;
+            this.props.updateComponentProp(tabs);
+        })
+    }
+    selectCategory(tab: Tab) {
+        categoryDialog.show(tab.categoryId != null ? [tab.categoryId] : [], (categoryIds) => {
+            tab.categoryId = categoryIds[0];
             let tabs = this.props.value;
             this.props.updateComponentProp(tabs);
         })
@@ -74,7 +82,7 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
             </td>
             <td style={{ textAlign: "center" }}>
                 <button className="btn btn-primary btn-minier"
-                    onClick={() => { this.selectProduct(tab) }} >
+                    onClick={() => { tab.source == "manual" ? this.selectProduct(tab) : this.selectCategory(tab) }} >
                     {tab.source == "manual" ? "选择商品" : "选择类别"}
                 </button>
 
