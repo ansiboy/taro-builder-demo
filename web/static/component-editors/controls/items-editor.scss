@@ -1,0 +1,16 @@
+.items-editor {
+    .label {
+        padding: 4px 8px 4px 8px;
+    }
+
+    i.icon-remove {
+        margin-left: 4px;
+        color      : red;
+        cursor     : pointer;
+    }
+
+    button {
+        padding-left : 6px;
+        padding-right: 6px;
+    }
+}

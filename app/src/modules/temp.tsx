@@ -5,9 +5,11 @@ import { services } from "../services";
 import { Empty } from "../data-controls";
 import { View } from "@tarojs/components";
 import { Menu } from "../components";
+import { parseUrl } from "maishu-toolkit";
+import Picture from "../components/picture";
 
 interface Props {
-
+    tid: string
 }
 
 interface State {
@@ -18,8 +20,10 @@ export class PageView extends React.Component<Props, State> {
     constructor(props) {
         super(props)
 
+        let params = parseUrl(this.props.tid)
         this.state = { pageData: undefined }
-        services.page.getPageRecord("66ca8aea-12d7-0d8e-1a70-7e2e6770953f")
+        let id = params.id || "66ca8aea-12d7-0d8e-1a70-7e2e6770953f";
+        services.page.getPageRecord(id)
             .then(r => {
                 if (r)
                     this.setState({ pageData: r.pageData });
@@ -46,15 +50,10 @@ export class PageView extends React.Component<Props, State> {
             return <Empty text="页面不存在" icon="" />
         }
 
-        return <View>
-            <View style={{ height: 200, backgroundColor: "red" }}>
-                <Page pageData={pageData} />
-            </View>
-            <View className="footer">
-                <Menu />
-            </View>
-        </View>
-
+        return <>
+            <Picture source="https://shop6.bailunmei.com/image/image?id=8811e0c5-b929-1bf1-616a-8384212d2941_1024_768&width=200&height=200" />
+            <Page pageData={pageData} />
+        </>
     }
 }
 

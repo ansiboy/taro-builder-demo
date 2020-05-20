@@ -58,35 +58,12 @@ export class ItemsEditor extends PropEditor<PropEditorState<CarouselItem[]>, Car
                                 if (!e) return;
                                 ui.buttonOnClick(e, () => {
                                     items = items.filter(c => c != o);
-                                    // this.state.items = items;
-                                    // this.setState(this.state);
                                     this.props.updateComponentProp(items);
                                     return Promise.resolve();
                                 }, { confirm: '确定删除吗' })
 
                             }} />
                         </div>
-                        {/* {clickType == 'openPage' ?
-                            <div className="form-group">
-                                <input className="form-control" placeholder="请输入和图片对应的链接" />
-                            </div> : null
-                        }
-                        <div className="form-group">
-                            <button className="btn btn-block btn-danger"
-                                ref={(e: HTMLButtonElement) => {
-                                    if (!e) return;
-                                    ui.buttonOnClick(e, () => {
-                                        items = items.filter(c => c != o);
-                                        // this.state.items = items;
-                                        // this.setState(this.state);
-                                        this.props.updateComponentProp(items);
-                                        return Promise.resolve();
-                                    }, { confirm: '确定删除吗' })
-
-                                }}>
-                                删除
-                            </button>
-                        </div> */}
                     </li>
                 )}
                 <li style={{ width: itemWidth, color: 'unset' }} className="btn-link" onClick={() => this.showImageDialog()}>

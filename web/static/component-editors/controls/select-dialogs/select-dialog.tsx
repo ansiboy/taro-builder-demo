@@ -1,16 +1,11 @@
 import { ImageService } from "../../../services/image-service";
 import ImageThumber from '../image-thumber';
-import { createDialogElement } from '../utiltiy';
 import React = require('react');
 import * as wuzhui from "maishu-wuzhui-helper";
 import * as ui from "maishu-ui-toolkit";
 import { errorHandle } from "maishu-chitu-admin/static";
-import { Less } from 'maishu-ui-toolkit';
 
-import ShopWebsiteConfig from "json!websiteConfig";
-import { pathContact, DataSource, DataSourceSelectArguments } from "maishu-toolkit";
-import common from "../common";
-let contextName = ShopWebsiteConfig.requirejs.context;
+import { DataSource, DataSourceSelectArguments } from "maishu-toolkit";
 // Less.renderByRequireJS(pathContact(common.path, "product-select-dialog.less"), { contextName });
 import "./select-dialog.scss";
 
@@ -23,8 +18,6 @@ type AllowedNames<Base, Condition> =
     FilterFlags<Base, Condition>[keyof Base]
 
 
-type SubType<Base, Condition> =
-    Pick<Base, AllowedNames<Base, Condition>>
 
 
 type SelectDialogProps<T> = {
@@ -65,18 +58,18 @@ export abstract class SelectDialog<T> extends React.Component<SelectDialogProps<
 
     show(selectedIds: string[], confirmSelectedProducts: (productIds: string[]) => Promise<any> | void)
     show(confirmSelectedProducts: (productIds: string[]) => Promise<any> | void)
-    show(selectedIdsOrCallback: string[] | ConfirmSelectedProducts, confirmSelectedProducts?: (productIds: string[]) => Promise<any> | void) {
+    show(selectedIdsOrCallback: string[] | ConfirmSelectedProducts, confirmSelectedItems?: (productIds: string[]) => Promise<any> | void) {
 
         let selectedIds: string[];
         if (typeof selectedIdsOrCallback == "function") {
-            confirmSelectedProducts = selectedIdsOrCallback;
+            confirmSelectedItems = selectedIdsOrCallback;
             selectedIdsOrCallback = [];
         }
         else {
             selectedIds = selectedIdsOrCallback;
         }
 
-        this.confirmSelectedProducts = confirmSelectedProducts;
+        this.confirmSelectedProducts = confirmSelectedItems;
         this.setState({ selectedIds });
 
         this.selectArguments.startRowIndex = 0;

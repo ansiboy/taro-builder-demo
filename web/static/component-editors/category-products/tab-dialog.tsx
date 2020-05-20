@@ -3,18 +3,18 @@ import * as ui from "maishu-ui-toolkit";
 import { FormValidator, rules } from "maishu-dilu";
 import { createDialogElement } from "../controls/utiltiy";
 import ReactDOM from "react-dom";
-import { Tab } from "app/components/category-products";
+import { Category } from "app/components/category-products";
 
 interface Props {
 
 }
 
 interface State {
-    tab: Partial<Tab>,
-    parent?: Tab,
+    tab: Partial<Category>,
+    parent?: Category,
 }
 
-type Callback = (item: Partial<Tab>) => void;
+type Callback = (item: Partial<Category>) => void;
 
 class CategoryDialog extends React.Component<Props, State> {
 
@@ -113,7 +113,7 @@ class CategoryDialog extends React.Component<Props, State> {
 let element = createDialogElement();
 let instance: CategoryDialog = ReactDOM.render(<CategoryDialog />, element) as any;
 
-export function showTabDialog(callback: Callback, parent: Tab, item: Partial<Tab>) {
+export function showTabDialog(callback: Callback, parent: Category, item: Partial<Category>) {
     ui.showDialog(element);
     instance.callback = callback;
     instance.validator.clearErrors();

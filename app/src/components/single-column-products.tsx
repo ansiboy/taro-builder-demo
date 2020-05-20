@@ -1,16 +1,15 @@
 import { Repeater, RepeaterItem, Empty } from "../data-controls/index";
 import { services, ShoppingService } from "../services/index";
 import React from "react";
-import { View, Text, Image } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import "./single-column-products.scss";
 import { DataSource, DataSourceSelectResult } from "maishu-toolkit";
 
-import { imagePath } from "../common";
-import { CountInput } from "./count-input";
-// import { Props } from "./single-column-products.d";
 import { component } from "taro-builder-core";
 import { Category, ShoppingCartItem, Product } from "../models/models";
 import { RepeaterEmtpy } from "../data-controls/repeater/repeater";
+import { ProductItem } from "./product/product-item";
+import { defaultProps } from "./default-props";
 export { Category, ShoppingCartItem } from "../models/models";
 
 export interface State {
@@ -93,33 +92,15 @@ export class SingleColumnProducts extends React.Component<Props, State> {
                     <RepeaterItem.Consumer>
                         {args => {
                             let p: Product = args.dataItem;
-                            return <ProductItem product={p} />
+                            return <ProductItem product={p} productParts={defaultProps.productItem.productParts} />
                         }}
                     </RepeaterItem.Consumer>
                     <RepeaterEmtpy.Consumer>
-                        {args => <Empty text="暂无所要显示的商品" icon="" />}
+                        {() => <Empty text="暂无所要显示的商品" icon="" />}
                     </RepeaterEmtpy.Consumer>
                 </Repeater>
             </View>
         </View >
-    }
-}
-
-export class ProductItem extends React.Component<{ product: Product }> {
-    render() {
-        let p = this.props.product
-        return <View className="item spliter">
-            <Image className="image" src={imagePath(p.ImagePath)} />
-            <View className="content">
-                <View className="name">
-                    {p.Name}
-                </View>
-                <View className="price">
-                    <Text className="price-color">￥{p.Price.toFixed(2)}</Text>
-                    <CountInput />
-                </View>
-            </View>
-        </View>
     }
 }
 

@@ -1,4 +1,4 @@
-import { Tab } from "app/components/category-products";
+import { Category } from "app/components/category-products";
 import { PropEditor, PropEditorState } from "maishu-jueying";
 import React from "react";
 import { guid } from "maishu-toolkit";
@@ -6,7 +6,7 @@ import { showTabDialog } from "./tab-dialog";
 import { categoryDialog } from "../controls/select-dialogs/category-select-dialog";
 import { productDialog } from "../controls/select-dialogs/product-select-dialog";
 
-export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
+export class CategoriesEditor extends PropEditor<PropEditorState<Category[]>, Category[]>{
     /** 添加一级分类 */
     addParent() {
         showTabDialog((item) => {
@@ -16,7 +16,7 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
         }, null, {});
     }
     /** 添加二级分类 */
-    addChild(parent: Tab) {
+    addChild(parent: Category) {
         let tabs = this.props.value || [];
         showTabDialog((item) => {
             parent.children = parent.children || [];
@@ -29,7 +29,7 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
         tabs = tabs.filter(o => o.id != id);
         this.props.updateComponentProp(tabs);
     }
-    edit(tab: Tab, parent: Tab | null) {
+    edit(tab: Category, parent: Category | null) {
         showTabDialog((item) => {
             Object.assign(tab, item);
             this.setState({});
@@ -37,21 +37,21 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
             this.props.updateComponentProp(tabs)
         }, parent, tab)
     }
-    selectProduct(tab: Tab) {
+    selectProduct(tab: Category) {
         productDialog.show(tab.productIds || [], (productIds) => {
             tab.productIds = productIds;
             let tabs = this.props.value;
             this.props.updateComponentProp(tabs);
         })
     }
-    selectCategory(tab: Tab) {
+    selectCategory(tab: Category) {
         categoryDialog.show(tab.categoryId != null ? [tab.categoryId] : [], (categoryIds) => {
             tab.categoryId = categoryIds[0];
             let tabs = this.props.value;
             this.props.updateComponentProp(tabs);
         })
     }
-    renderItem(tab: Tab, parent: Tab | null) {
+    renderItem(tab: Category, parent: Category | null) {
         return <tr>
             <td style={{ paddingLeft: parent ? 52 : null }}>
                 {parent == null ? <button className="btn btn-minier btn-primary"
@@ -68,6 +68,7 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
                         onChange={e => {
                             tab.source = "category";
                             this.setState({});
+                            this.props.updateComponentProp(this.props.value)
                         }} />
                     <span>商品类别</span>
                 </div>
@@ -76,6 +77,7 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
                         onChange={e => {
                             tab.source = "manual";
                             this.setState({});
+                            this.props.updateComponentProp(this.props.value)
                         }} />
                     <span>手动选择</span>
                 </div>
@@ -110,12 +112,12 @@ export class TabsEditor extends PropEditor<PropEditorState<Tab[]>, Tab[]>{
                 </thead>
                 <tbody>
                     {tabs.map(o => {
-                        return <>
+                        return <React.Fragment key={o.id}>
                             {this.renderItem(o, null)}
                             {(o.children || []).map(c =>
                                 this.renderItem(c, o)
                             )}
-                        </>
+                        </React.Fragment>
                     })}
                 </tbody>
                 <tfoot>

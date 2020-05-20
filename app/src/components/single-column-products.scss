@@ -29,30 +29,7 @@
         width           : 100%;
 
         .item {
-            font-size: $font-size-base;
-            display  : flex;
-
-            $image-width: 60px * $hd;
-
-            .image {
-                width : $image-width;
-                height: $image-width;
-            }
-
-            .content {
-                width     : calc(100% - #{$image-width});
-                text-align: left;
-                padding   : 0 10px * $hd;
-
-                .price {
-                    margin-top: 8px * $hd;
-
-                    .price-color {
-                        color: #f70;
-                    }
-                }
-            }
-
+          
             &.spliter {
                 border-bottom : 1px solid #cccccc;
                 padding-bottom: 10px * $hd;

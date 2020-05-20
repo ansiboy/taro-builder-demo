@@ -1,8 +1,8 @@
 export default {
   pages: [
     "modules/temp",
-    "modules/temp2",
     "modules/temp1",
+    "modules/temp2",
     "modules/index",
     "modules/user/receipt-list",
     "modules/user/index",
