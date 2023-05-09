@@ -34,7 +34,7 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "@tarojs/cli": "^3.0.0-beta.3",
+    "@tarojs/cli": "^3.6.6",
     "@tarojs/components": "3.0.0-beta.1",
     "@tarojs/react": "3.0.0-beta.1",
     "@tarojs/runtime": "3.0.0-beta.1",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.0",
     "@tarojs/mini-runner": "3.0.0-beta.1",
-    "@tarojs/webpack-runner": "3.0.0-beta.1",
+    "@tarojs/webpack-runner": "3.6.6",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/webpack-env": "^1.13.6",
